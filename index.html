@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carga de Imágenes en localStorage</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .slide {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        .code-block {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+        #imagePreview {
+            max-width: 300px;
+            max-height: 300px;
+            margin-top: 1rem;
+        }
+        .nav-link {
+            color: #2c3e50;
+            font-weight: bold;
+        }
+        .nav-link.active {
+            background-color: #2c3e50 !important;
+            color: white !important;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><i class="fas fa-image"></i> Carga de Imágenes en localStorage</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#intro">Introducción</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#how-it-works">Cómo Funciona</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#example">Ejemplo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#try-it">Pruébalo</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div id="intro" class="slide">
+            <h1 class="display-4"><i class="fas fa-cloud-upload-alt"></i> Carga de Imágenes en localStorage</h1>
+            <p class="lead">Aprende a guardar y recuperar imágenes utilizando el almacenamiento local del navegador.</p>
+        </div>
+
+        <div id="how-it-works" class="slide">
+            <h2><i class="fas fa-cogs"></i> Cómo Funciona</h2>
+            <ol>
+                <li>Selecciona una imagen usando un input de tipo "file".</li>
+                <li>Lee la imagen como una URL de datos usando FileReader.</li>
+                <li>Guarda la URL de datos en localStorage como una cadena.</li>
+                <li>Recupera la imagen de localStorage y muéstrala en un elemento img.</li>
+            </ol>
+        </div>
+
+        <div id="example" class="slide">
+            <h2><i class="fas fa-code"></i> Ejemplo de Código</h2>
+            <pre class="code-block"><code>
+// Guardar imagen en localStorage
+function saveImage(file) {
+    const reader = new FileReader();
+    reader.onload = function(event) {
+        localStorage.setItem('savedImage', event.target.result);
+    };
+    reader.readAsDataURL(file);
+}
+
+// Recuperar y mostrar imagen
+function displayImage() {
+    const savedImage = localStorage.getItem('savedImage');
+    if (savedImage) {
+        document.getElementById('imagePreview').src = savedImage;
+    }
+}
+            </code></pre>
+        </div>
+
+        <div id="try-it" class="slide">
+            <h2><i class="fas fa-laptop-code"></i> Pruébalo tú mismo</h2>
+            <input type="file" id="imageInput" class="form-control mb-3" accept="image/*">
+            <button id="saveButton" class="btn btn-primary mb-3">Guardar Imagen</button>
+            <button id="loadButton" class="btn btn-secondary mb-3">Cargar Imagen</button>
+            <div>
+                <img id="imagePreview" class="img-fluid rounded" alt="Vista previa de la imagen">
+            </div>
+        </div>
+        <div id="image-format" class="slide">
+            <h2><i class="fas fa-file-image"></i> Formato de la Imagen Guardada</h2>
+            <p>Cuando guardamos una imagen en localStorage, se almacena como una <strong>Data URL</strong> con codificación Base64.</p>
+            <h3>Estructura:</h3>
+            <pre class="code-block"><code>data:image/[formato];base64,[datos codificados en base64]</code></pre>
+            <h3>Ejemplo:</h3>
+            <div class="data-url-example">
+                data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAACklEQVR4nGMAAQAABQABDQottAAAAABJRU5ErkJggg==
+            </div>
+            <h3>Desglose:</h3>
+            <ul>
+                <li><strong>data:</strong> Indica que es una Data URL</li>
+                <li><strong>image/png:</strong> Tipo MIME (formato de la imagen)</li>
+                <li><strong>base64:</strong> Método de codificación</li>
+                <li><strong>iVBORw0KGgo...:</strong> Datos de la imagen codificados en base64</li>
+            </ul>
+            <p>Este formato permite almacenar imágenes como texto, haciéndolas compatibles con localStorage.</p>
+        </div>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const imageInput = document.getElementById('imageInput');
+            const saveButton = document.getElementById('saveButton');
+            const loadButton = document.getElementById('loadButton');
+            const imagePreview = document.getElementById('imagePreview');
+
+            saveButton.addEventListener('click', function() {
+                const file = imageInput.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        localStorage.setItem('savedImage', event.target.result);
+                        alert('Imagen guardada en localStorage');
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    alert('Por favor, selecciona una imagen primero');
+                }
+            });
+
+            loadButton.addEventListener('click', function() {
+                const savedImage = localStorage.getItem('savedImage');
+                if (savedImage) {
+                    imagePreview.src = savedImage;
+                    imagePreview.style.display = 'block';
+                } else {
+                    alert('No hay imagen guardada en localStorage');
+                }
+            });
+
+            // Smooth scrolling for navigation
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
