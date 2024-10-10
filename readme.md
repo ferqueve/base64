@@ -8,7 +8,7 @@ Esta es una presentación interactiva diseñada para explicar cómo funciona la 
 
 [Fernando D. Quevedo]
 - GitHub: [@ferqueve](https://github.com/ferqueve)
-- LinkedIn: [Tu Perfil de LinkedIn](https://www.linkedin.com/in/fernando-quevedo-80847a35/)
+- LinkedIn: [Fernando Quevedo](https://www.linkedin.com/in/fernando-quevedo-80847a35/)
 
 ## Características
 
